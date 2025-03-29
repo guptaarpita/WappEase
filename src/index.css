@@ -1,0 +1,106 @@
+@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#040b14] text-white font-sans;
+  }
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-[#7dd3fc] via-[#38bdf8] to-[#0284c7] bg-clip-text text-transparent;
+}
+
+.hero-gradient {
+  @apply bg-gradient-to-r from-[#0c4a6e]/80 via-[#0369a1]/50 to-[#0ea5e9]/30;
+}
+
+.card-gradient {
+  @apply bg-gradient-to-b from-[#0c4a6e]/10 to-transparent;
+}
+
+.button-gradient {
+  @apply bg-gradient-to-r from-[#0369a1] to-[#0ea5e9] hover:from-[#0284c7] hover:to-[#38bdf8];
+}
+
+.stats-gradient {
+  @apply bg-gradient-to-r from-[#0c4a6e] to-[#075985];
+}
+
+/* Background Animation */
+.background-animation {
+  background: radial-gradient(circle at center, #040b14 0%, #030912 100%);
+  overflow: hidden;
+}
+
+.grid-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 2px;
+  transform: rotate(45deg) scale(2);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+.grid-item {
+  background: linear-gradient(45deg, rgba(7, 89, 133, 0.05), rgba(14, 165, 233, 0.05));
+  border-radius: 4px;
+  transition: all 0.5s ease;
+}
+
+.grid-item:nth-child(3n) {
+  animation: glow1 4s ease-in-out infinite;
+}
+
+.grid-item:nth-child(7n) {
+  animation: glow2 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: rotate(45deg) scale(2);
+  }
+  50% {
+    transform: rotate(45deg) scale(2.2);
+  }
+}
+
+@keyframes glow1 {
+  0%, 100% {
+    background: linear-gradient(45deg, rgba(7, 89, 133, 0.05), rgba(14, 165, 233, 0.05));
+  }
+  50% {
+    background: linear-gradient(45deg, rgba(7, 89, 133, 0.2), rgba(14, 165, 233, 0.2));
+  }
+}
+
+@keyframes glow2 {
+  0%, 100% {
+    background: linear-gradient(45deg, rgba(14, 165, 233, 0.05), rgba(7, 89, 133, 0.05));
+  }
+  50% {
+    background: linear-gradient(45deg, rgba(14, 165, 233, 0.2), rgba(7, 89, 133, 0.2));
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
