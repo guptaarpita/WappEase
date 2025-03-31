@@ -7,7 +7,7 @@
 
 @layer base {
   body {
-    @apply bg-[#040b14] text-white font-sans;
+    @apply bg-[#040b14] text-white font-sans overflow-x-hidden;
   }
 }
 
@@ -20,7 +20,7 @@
 }
 
 .card-gradient {
-  @apply bg-gradient-to-b from-[#0c4a6e]/10 to-transparent;
+  @apply bg-gradient-to-br from-[#0c4a6e]/10 to-transparent;
 }
 
 .button-gradient {
@@ -28,64 +28,79 @@
 }
 
 .stats-gradient {
-  @apply bg-gradient-to-r from-[#0c4a6e] to-[#075985];
+  @apply bg-gradient-to-br from-[#0c4a6e] to-[#075985];
+}
+
+.icon-gradient {
+  @apply bg-gradient-to-br from-[#0284c7] to-[#38bdf8];
 }
 
 /* Background Animation */
-.background-animation {
-  background: radial-gradient(circle at center, #040b14 0%, #030912 100%);
-  overflow: hidden;
+.background-container {
+  @apply fixed inset-0 -z-10 overflow-hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
-.grid-container {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  gap: 2px;
-  transform: rotate(45deg) scale(2);
-  animation: pulse 8s ease-in-out infinite;
+.particles-container {
+  @apply absolute inset-0;
+  transform-style: preserve-3d;
 }
 
-.grid-item {
-  background: linear-gradient(45deg, rgba(7, 89, 133, 0.05), rgba(14, 165, 233, 0.05));
-  border-radius: 4px;
-  transition: all 0.5s ease;
+.particle {
+  @apply absolute rounded-full opacity-30;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: var(--color);
+  animation: float var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+  transform: translateZ(calc(var(--depth) * 1px));
+  box-shadow: 0 0 20px var(--color);
+  filter: blur(2px);
 }
 
-.grid-item:nth-child(3n) {
-  animation: glow1 4s ease-in-out infinite;
+.noise-overlay {
+  @apply absolute inset-0 opacity-20;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-.grid-item:nth-child(7n) {
-  animation: glow2 6s ease-in-out infinite;
+.gradient-overlay {
+  @apply absolute inset-0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(4, 11, 20, 0) 0%,
+    rgba(4, 11, 20, 0.2) 40%,
+    rgba(4, 11, 20, 0.8) 80%,
+    rgba(4, 11, 20, 1) 100%
+  );
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateZ(calc(var(--depth) * 1px)) translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: translateZ(calc(var(--depth) * 1px)) translateY(-20px) rotateX(180deg) rotateY(180deg);
+  }
 }
 
 @keyframes pulse {
   0%, 100% {
-    transform: rotate(45deg) scale(2);
+    transform: scale(1);
   }
   50% {
-    transform: rotate(45deg) scale(2.2);
+    transform: scale(1.1);
   }
 }
 
-@keyframes glow1 {
+@keyframes glow {
   0%, 100% {
-    background: linear-gradient(45deg, rgba(7, 89, 133, 0.05), rgba(14, 165, 233, 0.05));
+    opacity: 0.5;
   }
   50% {
-    background: linear-gradient(45deg, rgba(7, 89, 133, 0.2), rgba(14, 165, 233, 0.2));
-  }
-}
-
-@keyframes glow2 {
-  0%, 100% {
-    background: linear-gradient(45deg, rgba(14, 165, 233, 0.05), rgba(7, 89, 133, 0.05));
-  }
-  50% {
-    background: linear-gradient(45deg, rgba(14, 165, 233, 0.2), rgba(7, 89, 133, 0.2));
+    opacity: 1;
   }
 }
 
@@ -103,4 +118,27 @@
   &:hover {
     animation-play-state: paused;
   }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#040b14];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-[#0284c7] to-[#0ea5e9] rounded-full;
+}
+
+/* Form Elements */
+input, textarea {
+  @apply bg-[#0c4a6e]/10 border border-[#0ea5e9]/20 focus:border-[#0ea5e9] focus:ring-2 focus:ring-[#0ea5e9]/20 rounded-lg;
+}
+
+/* Card Hover Effects */
+.hover-card {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-[#0ea5e9]/10 hover:border-[#0ea5e9]/30;
 }

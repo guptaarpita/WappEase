@@ -1,14 +1,17 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { MessageSquareCode, Bot, Zap, Users, BarChart, Shield, Check } from 'lucide-react';
+import { MessageSquareCode, Bot, Zap, Users, BarChart, Shield, Check, X } from 'lucide-react';
 import ContactForm from './components/ContactForm';
+import EnquiryForm from './components/EnquiryForm';
 import Navbar from './components/Navbar';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import BackgroundAnimation from './components/BackgroundAnimation';
 
 function App() {
+  const [showEnquiryForm, setShowEnquiryForm] = useState(false);
+  
   const [featureRef, featureInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -109,16 +112,6 @@ function App() {
       
       {/* Hero Section */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="https://cdn.coverr.co/videos/coverr-close-up-of-coding-on-computer-1584/1080p.mp4" type="video/mp4" />
-        </video>
-        
         <div className="relative z-10 container mx-auto px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -143,6 +136,7 @@ function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            onClick={() => setShowEnquiryForm(true)}
             className="button-gradient px-8 py-4 rounded-lg text-white font-semibold transform transition hover:scale-105"
           >
             Get Started 
@@ -219,7 +213,10 @@ function App() {
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full py-3 rounded-lg font-semibold transition transform hover:scale-105 ${pkg.popular ? 'button-gradient' : 'bg-white/10 hover:bg-white/20'}`}>
+                <button 
+                  onClick={() => setShowEnquiryForm(true)}
+                  className={`w-full py-3 rounded-lg font-semibold transition transform hover:scale-105 ${pkg.popular ? 'button-gradient' : 'bg-white/10 hover:bg-white/20'}`}
+                >
                   Get Started
                 </button>
               </motion.div>
@@ -247,6 +244,33 @@ function App() {
       </div>
 
       <Footer />
+
+      {/* Enquiry Form Modal */}
+      <AnimatePresence>
+        {showEnquiryForm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-background rounded-2xl w-full max-w-3xl relative"
+            >
+              <button
+                onClick={() => setShowEnquiryForm(false)}
+                className="absolute top-4 right-4 text-white/60 hover:text-white"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <EnquiryForm />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
