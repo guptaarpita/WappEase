@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { Send, Loader2 } from 'lucide-react';
+import * as XLSX from 'xlsx';
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL || '',
@@ -30,6 +31,25 @@ export default function EnquiryForm() {
 
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
+  const exportToExcel = (data: EnquiryFormData) => {
+    const worksheet = XLSX.utils.json_to_sheet([{
+      'Company Name': data.companyName,
+      'Contact Person': data.contactPerson,
+      'Email': data.email,
+      'Phone': data.phone,
+      'Business Type': data.businessType,
+      'Package': data.package,
+      'Message': data.message,
+      'Date': new Date().toLocaleString()
+    }]);
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Enquiries');
+
+    // Generate Excel file
+    XLSX.writeFile(workbook, `enquiry_${new Date().getTime()}.xlsx`);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
@@ -40,6 +60,9 @@ export default function EnquiryForm() {
         .insert([formData]);
 
       if (error) throw error;
+
+      // Export to Excel
+      exportToExcel(formData);
 
       setStatus('success');
       setFormData({

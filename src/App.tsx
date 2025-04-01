@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { MessageSquareCode, Bot, Zap, Users, BarChart, Shield, Check, X } from 'lucide-react';
+import { MessageSquareCode, Bot, Zap, Users, BarChart, Shield, Check, X, ArrowLeft } from 'lucide-react';
 import ContactForm from './components/ContactForm';
 import EnquiryForm from './components/EnquiryForm';
 import Navbar from './components/Navbar';
@@ -108,39 +108,61 @@ function App() {
   return (
     <div className="min-h-screen bg-background">
       <BackgroundAnimation />
-      <Navbar />
+      <Navbar onGetStarted={() => setShowEnquiryForm(true)} />
       
       {/* Hero Section */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+        <div className="relative z-10 container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left side - Content */}
+          <div className="text-left">
+            <motion.h1
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-5xl md:text-7xl font-bold mb-6"
+            >
+              <span className="gradient-text">WappEase</span> 
+              <br />WhatsApp Integration
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl md:text-2xl text-white/80 mb-8"
+            >
+              Streamline your customer communication with AI-powered automation
+            </motion.p>
+            
+            <motion.button
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              onClick={() => setShowEnquiryForm(true)}
+              className="button-gradient px-8 py-4 rounded-lg text-white font-semibold transform transition hover:scale-105"
+            >
+              Get Started 
+            </motion.button>
+          </div>
+
+          {/* Right side - Video */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
+            className="relative aspect-video rounded-xl overflow-hidden shadow-xl border border-white/10"
           >
-            <span className="gradient-text">WappEase</span> 
-            <br />WhatsApp Integration
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto"
-          >
-            Streamline your customer communication with AI-powered automation
-          </motion.p>
-          
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            onClick={() => setShowEnquiryForm(true)}
-            className="button-gradient px-8 py-4 rounded-lg text-white font-semibold transform transition hover:scale-105"
-          >
-            Get Started 
-          </motion.button>
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="https://cdn.coverr.co/videos/coverr-using-smartphone-5028/1080p.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-r from-background/50 to-transparent"></div>
+          </motion.div>
         </div>
       </div>
 
@@ -260,12 +282,21 @@ function App() {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-background rounded-2xl w-full max-w-3xl relative"
             >
-              <button
-                onClick={() => setShowEnquiryForm(false)}
-                className="absolute top-4 right-4 text-white/60 hover:text-white"
-              >
-                <X className="w-6 h-6" />
-              </button>
+              <div className="flex items-center justify-between p-4">
+                <button
+                  onClick={() => setShowEnquiryForm(false)}
+                  className="flex items-center text-white/60 hover:text-white"
+                >
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <span>Back to Home</span>
+                </button>
+                <button
+                  onClick={() => setShowEnquiryForm(false)}
+                  className="text-white/60 hover:text-white"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
               <EnquiryForm />
             </motion.div>
           </motion.div>
