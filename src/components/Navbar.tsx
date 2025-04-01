@@ -1,11 +1,7 @@
 import React from 'react';
 import Logo from './Logo';
 
-interface NavbarProps {
-  onGetStarted: () => void;
-}
-
-export default function Navbar({ onGetStarted }: NavbarProps) {
+export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-white/10">
       <div className="container mx-auto px-4">
@@ -19,10 +15,7 @@ export default function Navbar({ onGetStarted }: NavbarProps) {
             <a href="#packages" className="text-white/80 hover:text-white transition">Packages</a>
             <a href="#testimonials" className="text-white/80 hover:text-white transition">Testimonials</a>
             <a href="#contact" className="text-white/80 hover:text-white transition">Contact</a>
-            <button 
-              onClick={onGetStarted}
-              className="button-gradient px-4 py-2 rounded-lg text-white font-semibold transform transition hover:scale-105"
-            >
+            <button className="button-gradient px-4 py-2 rounded-lg text-white font-semibold transform transition hover:scale-105">
               Get Started
             </button>
           </div>

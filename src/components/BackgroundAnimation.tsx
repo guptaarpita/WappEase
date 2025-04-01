@@ -58,10 +58,72 @@ const BackgroundAnimation = () => {
   }, []);
 
   return (
-    <div className="background-container">
+    <div className="background-animation">
       <div className="noise-overlay"></div>
       <div ref={containerRef} className="particles-container"></div>
       <div className="gradient-overlay"></div>
+      <style jsx>{`
+        .background-animation {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          overflow: hidden;
+        }
+        
+        .noise-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+          pointer-events: none;
+        }
+        
+        .particles-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+        
+        .particle {
+          position: absolute;
+          top: var(--y);
+          left: var(--x);
+          width: var(--size);
+          height: var(--size);
+          background: var(--color);
+          border-radius: 50%;
+          filter: blur(5px);
+          opacity: 0.3;
+          transform: translate3d(0, 0, 0);
+          animation: float var(--duration) var(--delay) infinite ease-in-out alternate;
+        }
+        
+        @keyframes float {
+          0% {
+            transform: translate3d(0, 0, 0) scale(1);
+          }
+          100% {
+            transform: translate3d(0, -50px, 0) scale(1.1);
+          }
+        }
+        
+        .gradient-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: radial-gradient(circle at center, transparent 0%, rgba(10, 10, 20, 0.9) 100%);
+          pointer-events: none;
+        }
+      `}</style>
     </div>
   );
 };

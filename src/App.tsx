@@ -5,7 +5,7 @@ import { MessageSquareCode, Bot, Zap, Users, BarChart, Shield, Check, X, ArrowLe
 import ContactForm from './components/ContactForm';
 import EnquiryForm from './components/EnquiryForm';
 import Navbar from './components/Navbar';
-import Testimonials from './components/Testimonials';
+//import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import BackgroundAnimation from './components/BackgroundAnimation';
 
@@ -120,6 +120,7 @@ function App() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="text-5xl md:text-7xl font-bold mb-6"
+              style={{ fontFamily: "'Ki Bold', sans-serif" }}
             >
               <span className="gradient-text">WappEase</span> 
               <br />WhatsApp Integration
@@ -130,6 +131,7 @@ function App() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-xl md:text-2xl text-white/80 mb-8"
+              style={{ fontFamily: "'Andale Mono Paneuropean Bold', monospace" }}
             >
               Streamline your customer communication with AI-powered automation
             </motion.p>
@@ -159,7 +161,7 @@ function App() {
               muted
               playsInline
             >
-              <source src="https://cdn.coverr.co/videos/coverr-using-smartphone-5028/1080p.mp4" type="video/mp4" />
+              <source src="src\img\Timeline 1.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-gradient-to-r from-background/50 to-transparent"></div>
           </motion.div>
@@ -221,10 +223,10 @@ function App() {
                   <div className="flex items-baseline">
                     <span className="text-lg">₹</span>
                     <span className="text-4xl font-bold">{pkg.price}</span>
-                    <span className="text-white/70 ml-2">/month</span>
+                    <span className="text-white/70 ml-2"></span>
                   </div>
                   <p className="text-sm text-white/60 mt-1">
-                    Renew your plan for just ₹{pkg.renewalPrice} after setup!
+                    Renew your plan for just ₹{pkg.renewalPrice}/month after setup!
                   </p>
                 </div>
                 <ul className="space-y-4 mb-8">
@@ -253,7 +255,7 @@ function App() {
       </div>
 
       {/* Testimonials Section */}
-      <Testimonials />
+      {/* <Testimonials /> */}
 
       {/* Contact Section */}
       <div id="contact" className="py-20 px-4">
